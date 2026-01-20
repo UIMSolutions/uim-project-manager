@@ -23,19 +23,14 @@
     </ul>
   </description>
   
-  <screenshots>
-    <screenshot type="default">
-      <caption>Main window showing projects and tasks</caption>
-      <image>https://raw.githubusercontent.com/uimsolutions/uim-project-manager/main/screenshots/main.png</image>
-    </screenshot>
-  </screenshots>
-  
   <url type="homepage">https://github.com/uimsolutions/uim-project-manager</url>
   <url type="bugtracker">https://github.com/uimsolutions/uim-project-manager/issues</url>
   
-  <developer_name>Your Name</developer_name>
+  <developer id="uimsolutions.github.io">
+    <name>UIM Solutions</name>
+  </developer>
   
-  <launchable type="desktop-id">io.github.uimsolutions.UIMProjectManager.desktop</launchable>
+  <launchable type="desktop-id">io.github.UIMSolutions.UIMProjectManager.desktop</launchable>
   
   <provides>
     <binary>uim-project-manager</binary>

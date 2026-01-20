@@ -22,16 +22,20 @@
             "name": "dmd",
             "buildsystem": "simple",
             "build-commands": [
+                "mkdir -p /app/bin /app/lib /app/include/d /app/etc",
                 "install -Dm755 linux/bin64/dmd /app/bin/dmd",
                 "cp -r linux/lib64/* /app/lib/",
-                "cp -r src/druntime/import/* /app/include/d/druntime/",
-                "cp -r src/phobos/* /app/include/d/phobos/"
+                "cp -r src/druntime /app/include/d/",
+                "cp -r src/phobos /app/include/d/",
+                "echo '[Environment]' > /app/etc/dmd.conf",
+                "echo 'DFLAGS=-I/app/include/d/phobos -I/app/include/d/druntime/import -L-L/app/lib' >> /app/etc/dmd.conf",
+                "ln -sf /app/etc/dmd.conf /etc/dmd.conf"
             ],
             "sources": [
                 {
                     "type": "archive",
                     "url": "https://downloads.dlang.org/releases/2.x/2.111.0/dmd.2.111.0.linux.tar.xz",
-                    "sha256": "c89ca5ab8ccec8daebadcbe5ebe59fe508e00ab8d9dcbd6f029e3ed3c7e6fccb"
+                    "sha256": "63bd32222b51a406e365904aea6761cd4de3cb1de02f003a370b5961196caa77"
                 }
             ]
         },
@@ -39,7 +43,7 @@
             "name": "dub",
             "buildsystem": "simple",
             "build-commands": [
-                "DMD=/app/bin/dmd ./build.sh",
+                "/app/bin/dmd -fPIC -I/app/include/d/phobos -I/app/include/d/druntime/import -L-L/app/lib -run build.d",
                 "install -Dm755 bin/dub /app/bin/dub"
             ],
             "sources": [
