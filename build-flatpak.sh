@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-APP_ID="io.github.yourname.DProjectManager"
+APP_ID="io.github.yourname.UIMProjectManager"
 MANIFEST="flatpak/${APP_ID}.json"
 
 echo "================================================"
-echo "Building Flatpak for D Project Manager"
+echo "Building Flatpak for UIM Project Manager"
 echo "================================================"
 
 # Check if flatpak-builder is installed
@@ -33,7 +33,7 @@ flatpak-builder --user --install --force-clean build-dir "${MANIFEST}"
 
 # Create single-file bundle for distribution
 echo "Creating distributable bundle..."
-flatpak build-bundle repo d-project-manager.flatpak "${APP_ID}"
+flatpak build-bundle repo uim-project-manager.flatpak "${APP_ID}"
 
 echo ""
 echo "================================================"
@@ -42,6 +42,6 @@ echo "================================================"
 echo "Testing: flatpak run ${APP_ID}"
 echo "Uninstall: flatpak uninstall ${APP_ID}"
 echo ""
-echo "Distributable file created: d-project-manager.flatpak"
-echo "Users can install with: flatpak install d-project-manager.flatpak"
+echo "Distributable file created: uim-project-manager.flatpak"
+echo "Users can install with: flatpak install uim-project-manager.flatpak"
 echo ""

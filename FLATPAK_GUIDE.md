@@ -29,8 +29,8 @@ sudo pacman -S flatpak flatpak-builder
    ```
 
 3. **Distribute the bundle:**
-   - Share `d-project-manager.flatpak` file
-   - Users install with: `flatpak install d-project-manager.flatpak`
+   - Share `uim-project-manager.flatpak` file
+   - Users install with: `flatpak install uim-project-manager.flatpak`
 
 ## Publishing to Flathub (Official Repository)
 
@@ -44,11 +44,11 @@ sudo pacman -S flatpak flatpak-builder
    
 2. **Create GitHub repository:**
    ```bash
-   cd /home/oz/DEV/D/UIM2026/desktop/d-project-manager
+   cd /home/oz/DEV/D/UIM2026/desktop/uim-project-manager
    git init
    git add .
    git commit -m "Initial commit"
-   git remote add origin https://github.com/yourname/d-project-manager.git
+   git remote add origin https://github.com/yourname/uim-project-manager.git
    git push -u origin main
    ```
 
@@ -73,7 +73,7 @@ Update `flatpak/io.github.yourname.DProjectManager.json`:
 "sources": [
     {
         "type": "archive",
-        "url": "https://github.com/yourname/d-project-manager/archive/v1.0.0.tar.gz",
+        "url": "https://github.com/yourname/uim-project-manager/archive/v1.0.0.tar.gz",
         "sha256": "CALCULATE_THIS"
     }
 ]
@@ -81,7 +81,7 @@ Update `flatpak/io.github.yourname.DProjectManager.json`:
 
 Calculate SHA256:
 ```bash
-wget https://github.com/yourname/d-project-manager/archive/v1.0.0.tar.gz
+wget https://github.com/yourname/uim-project-manager/archive/v1.0.0.tar.gz
 sha256sum v1.0.0.tar.gz
 ```
 
@@ -95,7 +95,7 @@ sha256sum v1.0.0.tar.gz
    ```bash
    git clone https://github.com/yourname/flathub.git
    cd flathub
-   git checkout -b add-d-project-manager
+   git checkout -b add-uim-project-manager
    
    # Copy your manifest
    cp /path/to/flatpak/io.github.yourname.DProjectManager.json .
@@ -103,7 +103,7 @@ sha256sum v1.0.0.tar.gz
    
    git add .
    git commit -m "Add D Project Manager"
-   git push origin add-d-project-manager
+   git push origin add-uim-project-manager
    ```
 
 3. **Create Pull Request:**
@@ -134,15 +134,15 @@ If you want to distribute without Flathub:
 
 ### Option 1: Bundle File
 
-Share `d-project-manager.flatpak`:
+Share `uim-project-manager.flatpak`:
 ```bash
 ./build-flatpak.sh
-# Upload d-project-manager.flatpak to your website/GitHub releases
+# Upload uim-project-manager.flatpak to your website/GitHub releases
 ```
 
 Users install:
 ```bash
-flatpak install d-project-manager.flatpak
+flatpak install uim-project-manager.flatpak
 ```
 
 ### Option 2: Custom Repository
@@ -172,7 +172,7 @@ flatpak run io.github.yourname.DProjectManager
 
 # Test in clean environment
 flatpak run --command=bash io.github.yourname.DProjectManager
-# Then inside: d-project-manager
+# Then inside: uim-project-manager
 
 # Validate desktop file
 desktop-file-validate io.github.yourname.DProjectManager.desktop

@@ -1,60 +1,51 @@
 {
-    "app-id": "io.github.yourname.DProjectManager",
+    "app-id": "io.github.yourname.UIMProjectManager",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "45",
+    "runtime-version": "46",
     "sdk": "org.gnome.Sdk",
-    "command": "d-project-manager",
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Extension.ldc"
+    ],
+    "command": "uim-project-manager",
     "finish-args": [
         "--share=ipc",
         "--socket=fallback-x11",
         "--socket=wayland",
         "--device=dri",
-        "--filesystem=xdg-documents"
+        "--filesystem=xdg-documents",
+        "--filesystem=xdg-cache/dub:create"
+    ],
+    "build-options": {
+        "append-path": "/usr/lib/sdk/ldc/bin",
+        "env": {
+            "DC": "ldc2",
+            "DUB_HOME": "/run/build/uim-project-manager/dub-cache"
+        }
+    },
+    "cleanup": [
+        "/include",
+        "/lib/pkgconfig",
+        "/share/man",
+        "*.a",
+        "*.la"
     ],
     "modules": [
         {
-            "name": "dmd",
+            "name": "uim-project-manager",
             "buildsystem": "simple",
+            "builddir": true,
             "build-commands": [
-                "make -f posix.mak AUTO_BOOTSTRAP=1 install INSTALL_DIR=/app"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://github.com/dlang/dmd/archive/v2.107.0.tar.gz",
-                    "sha256": "put-actual-sha256-here"
-                }
-            ]
-        },
-        {
-            "name": "dub",
-            "buildsystem": "simple",
-            "build-commands": [
-                "./build.sh",
-                "install -Dm755 bin/dub /app/bin/dub"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://github.com/dlang/dub/archive/v1.36.0.tar.gz",
-                    "sha256": "put-actual-sha256-here"
-                }
-            ]
-        },
-        {
-            "name": "d-project-manager",
-            "buildsystem": "simple",
-            "build-commands": [
-                "dub build --build=release --compiler=dmd",
-                "install -Dm755 d-project-manager /app/bin/d-project-manager",
-                "install -Dm644 io.github.yourname.DProjectManager.desktop /app/share/applications/io.github.yourname.DProjectManager.desktop",
-                "install -Dm644 io.github.yourname.DProjectManager.metainfo.xml /app/share/metainfo/io.github.yourname.DProjectManager.metainfo.xml",
-                "install -Dm644 icons/icon.svg /app/share/icons/hicolor/scalable/apps/io.github.yourname.DProjectManager.svg"
+                "mkdir -p dub-cache",
+                "dub build --build=release --compiler=ldc2 --cache=local --skip-registry=all --parallel",
+                "install -Dm755 uim-project-manager /app/bin/uim-project-manager",
+                "install -Dm644 io.github.yourname.UIMProjectManager.desktop /app/share/applications/io.github.yourname.UIMProjectManager.desktop",
+                "install -Dm644 io.github.yourname.UIMProjectManager.metainfo.xml /app/share/metainfo/io.github.yourname.UIMProjectManager.metainfo.xml",
+                "install -Dm644 icons/icon.svg /app/share/icons/hicolor/scalable/apps/io.github.yourname.UIMProjectManager.svg"
             ],
             "sources": [
                 {
                     "type": "dir",
-                    "path": "."
+                    "path": ".."
                 }
             ]
         }

@@ -1,5 +1,5 @@
 {
-    "name": "d-project-manager",
+    "name": "uim-project-manager",
     "description": "Project Management Application with GTK",
     "authors": ["Your Name"],
     "dependencies": {

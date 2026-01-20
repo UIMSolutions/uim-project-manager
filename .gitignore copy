@@ -1,7 +1,0 @@
-.dub/
-dub.selections.json
-d-project-manager
-projects.json
-*.o
-*.obj
-*.lst

@@ -26,19 +26,19 @@
   <screenshots>
     <screenshot type="default">
       <caption>Main window showing projects and tasks</caption>
-      <image>https://raw.githubusercontent.com/yourname/d-project-manager/main/screenshots/main.png</image>
+      <image>https://raw.githubusercontent.com/yourname/uim-project-manager/main/screenshots/main.png</image>
     </screenshot>
   </screenshots>
   
-  <url type="homepage">https://github.com/yourname/d-project-manager</url>
-  <url type="bugtracker">https://github.com/yourname/d-project-manager/issues</url>
+  <url type="homepage">https://github.com/yourname/uim-project-manager</url>
+  <url type="bugtracker">https://github.com/yourname/uim-project-manager/issues</url>
   
   <developer_name>Your Name</developer_name>
   
   <launchable type="desktop-id">io.github.yourname.DProjectManager.desktop</launchable>
   
   <provides>
-    <binary>d-project-manager</binary>
+    <binary>uim-project-manager</binary>
   </provides>
   
   <releases>
