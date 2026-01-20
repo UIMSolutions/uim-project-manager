@@ -107,14 +107,14 @@ sha256sum v1.0.0.tar.gz
    cp /path/to/io.github.yourname.UIMProjectManager.metainfo.xml .
 
    git add .
-   git commit -m "Add D Project Manager"
+   git commit -m "Add UIM Project Manager"
    git push origin add-uim-project-manager
    ```
 3. **Create Pull Request:**
 
    - Go to your fork on GitHub
    - Click "Pull Request"
-   - Title: "Add D Project Manager"
+   - Title: "Add UIM Project Manager"
    - Wait for review by Flathub maintainers
 
 ### Step 4: Flathub Review Process
