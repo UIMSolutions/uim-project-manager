@@ -1,0 +1,70 @@
+*.o
+*.obj
+*.pdb
+*~
+
+# Unknown hidden files
+.*
+!.gitignore
+!/.github
+!/.editorconfig
+!/.codecov.yml
+
+# Unknown script files
+/*.sh
+/*.bat
+/*.cmd
+!/build.cmd
+!/build.sh
+
+# dub generation files
+dub.selections.json
+docs.json
+__dummy.html
+
+# Ignore build files.
+/bin/dub
+/bin/__test__library-nonet__
+/bin/__test__library__
+/bin/dub-test-library
+/bin/libdub.a
+/bin/dub-*
+/bin/dub.*
+
+# Ignore files or directories created by the test suite.
+*.exe
+*.lib
+*.log
+/test/*/*
+/test/*.*
+!/test/*.d
+!/test/*.d.min_frontend
+!/test/*.sh
+!/test/*.sh.min_frontend
+!/test/*/.no_*
+!/test/*/.min_frontend
+!/test/*/.fail_build
+!/test/*/dub.json
+!/test/*/dub.sdl
+!/test/*/dub.settings.json
+!/test/*/source/
+!/test/*/src/
+
+# Ignore coverage files
+cov/
+
+# Ignore auto-generated docs
+/docs
+scripts/man/dub*.1.gz
+
+# Ignore generated files for examples
+/examples/generated-sources/generated-sources
+/examples/generated-sources/source/test.d
+
+dub_test_root.sh.*/
+
+test-cov-ctfe-test.lst
+test-unittest-cov-ctfe-source-mod.lst
+test-unittest-cov-ctfe-.dub-code-test-test-library-unittest-cov-ctfe-*-dub_test_root.lst
+
+example.yaml

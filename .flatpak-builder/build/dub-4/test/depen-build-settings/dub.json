@@ -1,0 +1,18 @@
+{
+	"description": "A minimal D application.",
+	"name": "depen-build-settings",
+
+	"dependencies": {
+		"depend1": { "version" : "*", "dflags" : ["-X"] }
+	},
+
+	"configurations": [
+		{
+			"name" : "defaultconfig",
+			"targetType": "executable",
+			"dependencies": {
+				"depend1": { "version" : "*", "dflags" : ["--d-version=must_be_defined"] }
+			}
+		}
+	]
+}

@@ -1,0 +1,2 @@
+version (anotherVerIdent) {}
+debug (anotherDebugVerIdent) {}

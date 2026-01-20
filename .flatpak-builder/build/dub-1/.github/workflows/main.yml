@@ -1,0 +1,136 @@
+# Cross platform tests for DUB
+
+name: Testsuite
+
+# Only triggers on pushes to master & stable, as well as PR to master and stable
+# Sometimes reverts appear in the upstream repository (e.g. when the revert button
+# is clicked by a contributor with commit access), this should be tested as PR).
+#
+# Also note that Github actions does not retrigger on target branch changes,
+# hence the check on push.
+on:
+  pull_request:
+    branches:
+      - master
+      - stable
+    paths-ignore:
+      - 'changelog/**'
+  push:
+    branches:
+      - master
+      - stable
+      # Use this branch name in your fork to test changes
+      - github-actions
+
+jobs:
+  single_checks:
+    name: "Single sanity check"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install latest DMD
+        uses: dlang-community/setup-dlang@v1
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run tests
+        run: |
+          # check for trailing whitespace
+          TRAILING_WS_COUNT=$(find . -type f -name '*.d' -exec grep -Hn "[[:blank:]]$" {} \; | wc -l)
+          if [ $TRAILING_WS_COUNT -ne 0 ]; then
+              echo "========================================"
+              find . -type f -name '*.d' -exec grep -Hn "[[:blank:]]$" {} \;
+              echo "========================================"
+              echo "The files above have trailing whitespace"
+              exit 1
+          fi
+          # check that the man page generation still works
+          dub --single -v scripts/man/gen_man.d
+
+  main:
+    name: Run
+    strategy:
+      # Default, disable if you want to debug
+      fail-fast: false
+      matrix:
+        # Latest stable version, update at will
+        os: [ macOS-12, ubuntu-20.04, windows-2019 ]
+        dc:
+          # Always test latest as that is what we use to compile on release
+          - dmd-latest
+          - ldc-latest
+          # Provide some testing for upstream
+          - dmd-master
+          - ldc-master
+          # Test some intermediate versions
+          - ldc-1.29.0
+          - dmd-2.099.1
+          - dmd-2.102.2
+          - dmd-2.105.3
+        include:
+          - { do_test: false }
+          - { dc: dmd-latest, do_test: true }
+          - { dc: ldc-latest, do_test: true }
+          - { dc: dmd-master, do_test: true }
+          - { dc: ldc-master, do_test: true }
+
+    runs-on: ${{ matrix.os }}
+    steps:
+
+    # Install required dependencies
+    - name: '[OSX] Install dependencies'
+      if: runner.os == 'macOS'
+      run: |
+        brew install pkg-config coreutils
+        echo "PKG_CONFIG_PATH=/usr/local/opt/openssl@1.1/lib/pkgconfig/" >> $GITHUB_ENV
+
+    - name: '[Linux] Install dependencies'
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update && sudo apt-get install -y libcurl4-openssl-dev netcat
+
+    # Compiler to test with
+    - name: Prepare compiler
+      uses: dlang-community/setup-dlang@v1
+      with:
+        compiler: ${{ matrix.dc }}
+
+    # Checkout the repository
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: '[POSIX] Test'
+      if: runner.os != 'Windows'
+      env:
+        COVERAGE: true
+      run: |
+        dub build --compiler=${{ env.DC }}
+        if [[ ${{ matrix.do_test }} == 'true' ]]; then
+          dub run   --compiler=${{ env.DC }} --single test/issue2051_running_unittests_from_dub_single_file_packages_fails.d
+          ./scripts/ci/ci.sh
+        fi
+
+    - name: '[Windows] Test'
+      if: runner.os == 'Windows'
+      env:
+        DUB: ${{ github.workspace }}\bin\dub.exe
+      run: |
+        dub build --compiler=${{ env.DC }}
+        if [[ ${{ matrix.do_test }} == 'true' ]]; then
+          dub test  --compiler=${{ env.DC }}
+          dub run   --compiler=${{ env.DC }} --single test/issue2051_running_unittests_from_dub_single_file_packages_fails.d
+          dub --single test/run-unittest.d
+
+          # FIXME: DMD fails a few tests on Windows; remove them for now
+          if [[ '${{ matrix.dc }}' = dmd* ]]; then
+            # DLL support is lacking
+            rm -rf test/{1-dynLib-simple,2-dynLib-dep,2-dynLib-with-staticLib-dep}
+            # Unicode in paths too
+            rm -rf test/issue130-unicode-СНА*
+            # ImportC probably requires set-up MSVC environment variables
+            rm -rf test/use-c-sources
+          fi
+          test/run-unittest.sh
+        fi
+      shell: bash
+
+    - name: Codecov
+      uses: codecov/codecov-action@v4
