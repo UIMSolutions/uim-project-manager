@@ -80,7 +80,7 @@ class ProjectManagerApp
     
     private void setupUI()
     {
-        window = new MainWindow("D Project Manager");
+        window = new MainWindow("UIM Project Manager");
         window.setDefaultSize(1200, 700);
         window.addOnDestroy((widget) { 
             saveData();
@@ -386,7 +386,13 @@ class ProjectManagerApp
     
     private void onAddProject(Button btn)
     {
-        auto dialog = new Dialog("New Project", window, GtkDialogFlags.MODAL, ["Create", "Cancel"], [GtkResponseType.ACCEPT, GtkResponseType.CANCEL]);
+        auto dialog = new Dialog(
+            "New Project", 
+            window, 
+            GtkDialogFlags.MODAL, 
+            ["Create", "Cancel"], 
+            [GtkResponseType.ACCEPT, GtkResponseType.CANCEL]
+        );
         auto contentBox = dialog.getContentArea();
         
         auto grid = new Box(GtkOrientation.VERTICAL, 10);

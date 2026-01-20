@@ -1,4 +1,4 @@
-# Flatpak Distribution Guide for D Project Manager
+# Flatpak Distribution Guide for UIM Project Manager
 
 ## Prerequisites
 
@@ -18,17 +18,18 @@ sudo pacman -S flatpak flatpak-builder
 ## Quick Build & Test
 
 1. **Build the Flatpak:**
+
    ```bash
    chmod +x build-flatpak.sh
    ./build-flatpak.sh
    ```
-
 2. **Test locally:**
-   ```bash
-   flatpak run io.github.yourname.DProjectManager
-   ```
 
+   ```bash
+   flatpak run io.github.yourname.UIMProjectManager
+   ```
 3. **Distribute the bundle:**
+
    - Share `uim-project-manager.flatpak` file
    - Users install with: `flatpak install uim-project-manager.flatpak`
 
@@ -37,12 +38,13 @@ sudo pacman -S flatpak flatpak-builder
 ### Step 1: Prepare Your App
 
 1. **Replace placeholders:**
+
    - Change `yourname` to your GitHub username in:
-     - `flatpak/io.github.yourname.DProjectManager.json`
-     - `io.github.yourname.DProjectManager.desktop`
-     - `io.github.yourname.DProjectManager.metainfo.xml`
-   
+     - `flatpak/io.github.yourname.UIMProjectManager.json`
+     - `io.github.yourname.UIMProjectManager.desktop`
+     - `io.github.yourname.UIMProjectManager.metainfo.xml`
 2. **Create GitHub repository:**
+
    ```bash
    cd /home/oz/DEV/D/UIM2026/desktop/uim-project-manager
    git init
@@ -51,23 +53,24 @@ sudo pacman -S flatpak flatpak-builder
    git remote add origin https://github.com/yourname/uim-project-manager.git
    git push -u origin main
    ```
-
 3. **Add screenshots:**
+
    - Create `screenshots/` directory
    - Add PNG screenshots (1280x720 recommended)
    - Push to GitHub
-
 4. **Create a release:**
+
    ```bash
    git tag -a v1.0.0 -m "Version 1.0.0"
    git push origin v1.0.0
    ```
+
    - On GitHub: Create release from tag
    - Upload the compiled binary (optional)
 
 ### Step 2: Update Flatpak Manifest
 
-Update `flatpak/io.github.yourname.DProjectManager.json`:
+Update `flatpak/io.github.yourname.UIMProjectManager.json`:
 
 ```json
 "sources": [
@@ -80,6 +83,7 @@ Update `flatpak/io.github.yourname.DProjectManager.json`:
 ```
 
 Calculate SHA256:
+
 ```bash
 wget https://github.com/yourname/uim-project-manager/archive/v1.0.0.tar.gz
 sha256sum v1.0.0.tar.gz
@@ -88,25 +92,26 @@ sha256sum v1.0.0.tar.gz
 ### Step 3: Submit to Flathub
 
 1. **Fork Flathub repository:**
+
    - Go to https://github.com/flathub/flathub
    - Click "Fork"
-
 2. **Add your app:**
+
    ```bash
    git clone https://github.com/yourname/flathub.git
    cd flathub
    git checkout -b add-uim-project-manager
-   
+
    # Copy your manifest
-   cp /path/to/flatpak/io.github.yourname.DProjectManager.json .
-   cp /path/to/io.github.yourname.DProjectManager.metainfo.xml .
-   
+   cp /path/to/flatpak/io.github.yourname.UIMProjectManager.json .
+   cp /path/to/io.github.yourname.UIMProjectManager.metainfo.xml .
+
    git add .
    git commit -m "Add D Project Manager"
    git push origin add-uim-project-manager
    ```
-
 3. **Create Pull Request:**
+
    - Go to your fork on GitHub
    - Click "Pull Request"
    - Title: "Add D Project Manager"
@@ -115,6 +120,7 @@ sha256sum v1.0.0.tar.gz
 ### Step 4: Flathub Review Process
 
 Reviewers will check:
+
 - ✅ App ID follows reverse DNS (io.github.username.AppName)
 - ✅ MetaInfo file is valid
 - ✅ Desktop file is correct
@@ -123,6 +129,7 @@ Reviewers will check:
 - ✅ No bundled libraries that should be separate
 
 **Common issues to fix:**
+
 - Missing or incorrect SHA256 checksums
 - Invalid MetaInfo XML
 - Wrong permissions in finish-args
@@ -135,12 +142,14 @@ If you want to distribute without Flathub:
 ### Option 1: Bundle File
 
 Share `uim-project-manager.flatpak`:
+
 ```bash
 ./build-flatpak.sh
 # Upload uim-project-manager.flatpak to your website/GitHub releases
 ```
 
 Users install:
+
 ```bash
 flatpak install uim-project-manager.flatpak
 ```
@@ -151,14 +160,14 @@ Host your own Flatpak repo:
 
 ```bash
 # Build and export to repo
-flatpak-builder --repo=myrepo --force-clean build-dir flatpak/io.github.yourname.DProjectManager.json
+flatpak-builder --repo=myrepo --force-clean build-dir flatpak/io.github.yourname.UIMProjectManager.json
 
 # Upload myrepo/ directory to web server
 rsync -av myrepo/ yourserver.com:/var/www/flatpak/
 
 # Users add your repo
 flatpak remote-add --user myapps https://yourserver.com/flatpak/
-flatpak install myapps io.github.yourname.DProjectManager
+flatpak install myapps io.github.yourname.UIMProjectManager
 ```
 
 ## Testing Before Release
@@ -168,17 +177,17 @@ flatpak install myapps io.github.yourname.DProjectManager
 ./build-flatpak.sh
 
 # Test installation
-flatpak run io.github.yourname.DProjectManager
+flatpak run io.github.yourname.UIMProjectManager
 
 # Test in clean environment
-flatpak run --command=bash io.github.yourname.DProjectManager
+flatpak run --command=bash io.github.yourname.UIMProjectManager
 # Then inside: uim-project-manager
 
 # Validate desktop file
-desktop-file-validate io.github.yourname.DProjectManager.desktop
+desktop-file-validate io.github.yourname.UIMProjectManager.desktop
 
 # Validate metainfo
-appstream-util validate io.github.yourname.DProjectManager.metainfo.xml
+appstream-util validate io.github.yourname.UIMProjectManager.metainfo.xml
 ```
 
 ## Updating Your App

@@ -3,7 +3,7 @@
     "description": "Project Management Application with GTK",
     "authors": ["Your Name"],
     "dependencies": {
-        "gtk-d": "~>3.10.0",
+        "gtk-d": "~>3.11.0",
         "uim-framework": "~>26.1.1"
     },
     "versions": []
