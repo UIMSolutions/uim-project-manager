@@ -1,0 +1,32 @@
+{
+    "app-id": "io.github.UIMSolutions.UIMProjectManager",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "46",
+    "sdk": "org.gnome.Sdk",
+    "command": "uim-project-manager",
+    "finish-args": [
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--device=dri",
+        "--filesystem=xdg-documents"
+    ],
+    "modules": [
+        {
+            "name": "uim-project-manager",
+            "buildsystem": "simple",
+            "build-commands": [
+                "install -Dm755 uim-project-manager /app/bin/uim-project-manager",
+                "install -Dm644 io.github.UIMSolutions.UIMProjectManager.desktop /app/share/applications/io.github.UIMSolutions.UIMProjectManager.desktop",
+                "install -Dm644 io.github.UIMSolutions.UIMProjectManager.metainfo.xml /app/share/metainfo/io.github.UIMSolutions.UIMProjectManager.metainfo.xml",
+                "install -Dm644 icons/icon.svg /app/share/icons/hicolor/scalable/apps/io.github.UIMSolutions.UIMProjectManager.svg"
+            ],
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": ".."
+                }
+            ]
+        }
+    ]
+}
