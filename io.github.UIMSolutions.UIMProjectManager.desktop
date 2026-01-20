@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=UIM Project Manager
+GenericName=Project Management Tool
+Comment=Manage projects and tasks with a native GTK interface
+Exec=uim-project-manager
+Icon=io.github.UIMSolutions.UIMProjectManager
+Categories=GTK;Development;ProjectManagement;Office;
+Keywords=project;task;management;todo;planning;
+Terminal=false
+StartupNotify=true
+StartupWMClass=uim-project-manager
