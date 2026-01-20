@@ -1,0 +1,62 @@
+{
+    "app-id": "io.github.yourname.DProjectManager",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "45",
+    "sdk": "org.gnome.Sdk",
+    "command": "d-project-manager",
+    "finish-args": [
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--device=dri",
+        "--filesystem=xdg-documents"
+    ],
+    "modules": [
+        {
+            "name": "dmd",
+            "buildsystem": "simple",
+            "build-commands": [
+                "make -f posix.mak AUTO_BOOTSTRAP=1 install INSTALL_DIR=/app"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/dlang/dmd/archive/v2.107.0.tar.gz",
+                    "sha256": "put-actual-sha256-here"
+                }
+            ]
+        },
+        {
+            "name": "dub",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./build.sh",
+                "install -Dm755 bin/dub /app/bin/dub"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/dlang/dub/archive/v1.36.0.tar.gz",
+                    "sha256": "put-actual-sha256-here"
+                }
+            ]
+        },
+        {
+            "name": "d-project-manager",
+            "buildsystem": "simple",
+            "build-commands": [
+                "dub build --build=release --compiler=dmd",
+                "install -Dm755 d-project-manager /app/bin/d-project-manager",
+                "install -Dm644 io.github.yourname.DProjectManager.desktop /app/share/applications/io.github.yourname.DProjectManager.desktop",
+                "install -Dm644 io.github.yourname.DProjectManager.metainfo.xml /app/share/metainfo/io.github.yourname.DProjectManager.metainfo.xml",
+                "install -Dm644 icons/icon.svg /app/share/icons/hicolor/scalable/apps/io.github.yourname.DProjectManager.svg"
+            ],
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "."
+                }
+            ]
+        }
+    ]
+}

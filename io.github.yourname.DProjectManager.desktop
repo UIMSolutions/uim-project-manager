@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=D Project Manager
+GenericName=Project Management Tool
+Comment=Manage projects and tasks with a native GTK interface
+Exec=d-project-manager
+Icon=io.github.yourname.DProjectManager
+Categories=GTK;Development;ProjectManagement;Office;
+Keywords=project;task;management;todo;planning;
+Terminal=false
+StartupNotify=true
+StartupWMClass=d-project-manager

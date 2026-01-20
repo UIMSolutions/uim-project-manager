@@ -1,0 +1,28 @@
+{
+    "projects": [
+        {
+            "createdDate": "2026-01-20",
+            "description": "aw",
+            "id": "proj_1",
+            "name": "awa",
+            "tasks": [
+                {
+                    "createdDate": "2026-01-20",
+                    "description": "",
+                    "dueDate": "2026-01-27",
+                    "id": "task_2",
+                    "name": "sdsds",
+                    "priority": "medium",
+                    "status": "todo"
+                }
+            ]
+        },
+        {
+            "createdDate": "2026-01-20",
+            "description": "",
+            "id": "proj_2",
+            "name": "sdsd",
+            "tasks": []
+        }
+    ]
+}

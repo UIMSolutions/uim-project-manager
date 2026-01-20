@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Background circle -->
+  <circle cx="64" cy="64" r="60" fill="#3498db" opacity="0.9"/>
+  
+  <!-- Checklist icon -->
+  <g fill="white">
+    <!-- Top item -->
+    <rect x="35" y="30" width="58" height="8" rx="2"/>
+    <circle cx="30" cy="34" r="4"/>
+    
+    <!-- Middle item with checkmark -->
+    <rect x="35" y="52" width="58" height="8" rx="2"/>
+    <circle cx="30" cy="56" r="4" fill="#2ecc71"/>
+    <path d="M 27 56 L 29 58 L 33 54" stroke="white" stroke-width="2" fill="none"/>
+    
+    <!-- Bottom item -->
+    <rect x="35" y="74" width="58" height="8" rx="2"/>
+    <circle cx="30" cy="78" r="4"/>
+    
+    <!-- Folder indicator -->
+    <path d="M 40 90 L 40 102 L 88 102 L 88 94 L 75 94 L 72 90 Z" fill="white" opacity="0.8"/>
+  </g>
+</svg>
